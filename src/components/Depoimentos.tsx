@@ -33,7 +33,7 @@ const DEPOIMENTOS = [
   },
   {
     nome: "Camila Mendes",
-    tratamento: "Consciência Corporal & Canolu",
+    tratamento: "Consciência Corporal",
     relato:
       "Atendimento incrível e diferenciado. A Roberta avalia o corpo como um todo de verdade, identificando a real causa das dores. O método Canolu e o GYROTONIC® trouxeram de volta a minha consciência corporal e flexibilidade. O melhor atendimento de fisioterapia de São Paulo.",
     tempo: "Há 2 semanas",
