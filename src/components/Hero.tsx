@@ -1,9 +1,19 @@
+import { useState } from "react";
 import { useTexts } from "../context/TextContext";
 import { whatsappLink, GOOGLE_MAPS_URL } from "../data/site";
 import { Sparkles, MessageSquare, MapPin } from "lucide-react";
 
 export default function Hero() {
   const { t } = useTexts();
+  const [heroImg, setHeroImg] = useState("roberta.png");
+  const [hasError, setHasError] = useState(false);
+
+  const handleImgError = () => {
+    if (!hasError) {
+      setHeroImg("roberta_elite.png");
+      setHasError(true);
+    }
+  };
 
   return (
     <section id="topo" className="relative overflow-hidden bg-cream py-20 text-ink">
@@ -76,8 +86,9 @@ export default function Hero() {
               
               <div className="aspect-[4/5] w-full max-w-[360px] overflow-hidden rounded-[32px] bg-neutral-100 shadow-lg border border-roxo/10">
                 <img
-                  src="roberta.png"
-                  alt="Dra. Roberta Quinn na maca / aparelho"
+                  src={heroImg}
+                  alt="Dra. Roberta Quinn fisioterapia no Itaim Bibi, São Paulo, SP"
+                  onError={handleImgError}
                   referrerPolicy="no-referrer"
                   className="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.1]"
                 />
