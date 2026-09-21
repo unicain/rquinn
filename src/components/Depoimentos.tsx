@@ -1,7 +1,22 @@
-import { Star, ArrowRight, ExternalLink } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Star, ArrowRight, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { GOOGLE_MAPS_URL } from "../data/site";
 
 const DEPOIMENTOS = [
+  {
+    nome: "Isabella Chrispim",
+    tratamento: "Atleta de Nado Artístico & Gyrotonic",
+    relato:
+      "Como atleta de nado artístico, tenho sido atendida na clínica por diferentes fisioterapeutas e instrutoras especializadas em Gyrotonic. O trabalho realizado tem contribuído significativamente para minha preparação, melhorando meu desempenho, consciência corporal, mobilidade e performance como atleta. O atendimento é sempre muito profissional e de excelência.",
+    tempo: "Há 4 semanas",
+  },
+  {
+    nome: "ChrispiM",
+    tratamento: "Método GYROTONIC® & Kamila",
+    relato:
+      "Tive uma experiência maravilhosa com o Gyrotonic, a aula foi muito especial conduzida pela Roberta e a Kamila. O atendimento foi acolhedor, o espaço muito profissional, demonstraram muito conhecimento e atenção durante toda a prática. Amei!",
+    tempo: "Há 4 semanas",
+  },
   {
     nome: "Mariana Silva",
     tratamento: "Fisioterapia & Gyrotonic",
@@ -40,9 +55,70 @@ const DEPOIMENTOS = [
 ];
 
 export default function Depoimentos() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 10);
+
+    const firstCard = el.firstElementChild as HTMLElement | null;
+    if (firstCard) {
+      const cardWidth = firstCard.offsetWidth + 24; // largura + gap
+      const index = Math.round(el.scrollLeft / cardWidth);
+      setActiveIndex(Math.min(Math.max(index, 0), DEPOIMENTOS.length - 1));
+    }
+  }, []);
+
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [updateScrollState]);
+
+  const scroll = (direction: "left" | "right") => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const firstCard = el.firstElementChild as HTMLElement | null;
+    const scrollAmount = (firstCard?.offsetWidth || 340) + 24;
+
+    el.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollToIndex = (index: number) => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const firstCard = el.firstElementChild as HTMLElement | null;
+    const cardWidth = (firstCard?.offsetWidth || 340) + 24;
+
+    el.scrollTo({
+      left: index * cardWidth,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section id="depoimentos" className="bg-cream py-20 text-ink">
       <div className="mx-auto max-w-6xl px-6">
+        {/* Cabeçalho da seção */}
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-coral">
@@ -80,11 +156,49 @@ export default function Depoimentos() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {DEPOIMENTOS.map((depoimento) => (
+        {/* Barra de controles do carrossel */}
+        <div className="mt-8 flex items-center justify-between">
+          <p className="text-xs text-ink/60">
+            Deslize para ver mais relatos ({DEPOIMENTOS.length} avaliações)
+          </p>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => scroll("left")}
+              disabled={!canScrollLeft}
+              aria-label="Depoimento anterior"
+              className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
+                canScrollLeft
+                  ? "border-roxo/20 bg-white text-roxo shadow-sm hover:border-roxo hover:bg-roxo hover:text-cream cursor-pointer"
+                  : "border-roxo/10 bg-transparent text-ink/25 cursor-not-allowed"
+              }`}
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              disabled={!canScrollRight}
+              aria-label="Próximo depoimento"
+              className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
+                canScrollRight
+                  ? "border-roxo/20 bg-white text-roxo shadow-sm hover:border-roxo hover:bg-roxo hover:text-cream cursor-pointer"
+                  : "border-roxo/10 bg-transparent text-ink/25 cursor-not-allowed"
+              }`}
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Carrossel com Scroll Snap nativo e touch-swipe suave */}
+        <div
+          ref={scrollContainerRef}
+          className="mt-6 flex gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {DEPOIMENTOS.map((depoimento, index) => (
             <div
               key={depoimento.nome}
-              className="flex flex-col justify-between rounded-2xl border border-roxo/10 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
+              className="flex w-[88vw] sm:w-[360px] md:w-[350px] lg:w-[360px] flex-shrink-0 snap-start flex-col justify-between rounded-2xl border border-roxo/10 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -126,6 +240,23 @@ export default function Depoimentos() {
           ))}
         </div>
 
+        {/* Indicadores de bolinhas (Dots) */}
+        <div className="mt-6 flex items-center justify-center gap-2">
+          {DEPOIMENTOS.map((depoimento, idx) => (
+            <button
+              key={depoimento.nome}
+              onClick={() => scrollToIndex(idx)}
+              aria-label={`Ir para depoimento ${idx + 1} de ${depoimento.nome}`}
+              className={`h-2 rounded-full transition-all ${
+                idx === activeIndex
+                  ? "w-8 bg-coral"
+                  : "w-2 bg-roxo/20 hover:bg-roxo/40"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Botões de Ação para o Google Maps */}
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
             href={GOOGLE_MAPS_URL}
