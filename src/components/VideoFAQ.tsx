@@ -26,7 +26,7 @@ const SHORTS: ShortVideo[] = [
     id: "6fGgP7g0Jmw",
     pergunta: "Como aliviar a tensão nos ombros e pescoço?",
     categoria: "Dores",
-    thumbnailUrl: "tensao_ombros_pescoco.png",
+    thumbnailUrl: "tensao_ombros_pescoco.jpg",
   },
   {
     id: "CBmmcgP4aQo",
