@@ -32,7 +32,7 @@ const SHORTS: ShortVideo[] = [
     id: "CBmmcgP4aQo",
     pergunta: "Quem pode usar o GYROTONIC®?",
     categoria: "Gyrotonic",
-    thumbnailUrl: "quem_pode_usar.png",
+    thumbnailUrl: "quem_pode_usar.jpg",
   },
   {
     id: "CKOLBTZYXqk",
