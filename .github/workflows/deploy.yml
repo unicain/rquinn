@@ -1,0 +1,53 @@
+# Workflow para automatizar o deploy de aplicativos Vite/React no GitHub Pages
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ] # Executa o deploy sempre que houver atualização na branch main
+
+  # Permite rodar o workflow manualmente pela aba Actions do GitHub
+  workflow_dispatch:
+
+# Define as permissões necessárias para o GitHub Actions fazer deploy no Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Garante apenas um deploy ativo por vez para evitar conflitos
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Código-Fonte
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar Dependências
+        run: npm install
+
+      - name: Compilar Projeto (Build)
+        run: npm run build
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Carregar Artefatos Compilados
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # Pasta de saída gerada pelo build do Vite
+
+      - name: Realizar Deploy no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

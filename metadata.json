@@ -1,0 +1,8 @@
+{
+  "name": "Remix robertaquinn",
+  "description": "Imported from GitHub: unicain/robertaquinn",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
