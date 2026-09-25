@@ -14,37 +14,37 @@ const SHORTS: ShortVideo[] = [
     id: "8aT9inpt5Uk",
     pergunta: "Por que escolher o Método GYROTONIC®?",
     categoria: "Gyrotonic",
-    thumbnailUrl: "pq_escolher_o_gyrotonic.jpg",
+    thumbnailUrl: "pq_escolher_o_gyrotonic.webp",
   },
   {
     id: "oe_r0jk7LEY",
     pergunta: "A importância da avaliação postural individualizada",
     categoria: "Fisioterapia",
-    thumbnailUrl: "avaliacao_personalizada.png",
+    thumbnailUrl: "avaliacao_personalizada.webp",
   },
   {
     id: "6fGgP7g0Jmw",
     pergunta: "Como aliviar a tensão nos ombros e pescoço?",
     categoria: "Dores",
-    thumbnailUrl: "tensao_ombros_pescoco.jpg",
+    thumbnailUrl: "tensao_ombros_pescoco.webp",
   },
   {
     id: "CBmmcgP4aQo",
     pergunta: "Quem pode usar o GYROTONIC®?",
     categoria: "Gyrotonic",
-    thumbnailUrl: "quem_pode_usar.jpg",
+    thumbnailUrl: "quem_pode_usar.webp",
   },
   {
     id: "CKOLBTZYXqk",
     pergunta: "Como o Método GYROTONIC® foi criado",
     categoria: "Gyrotonic",
-    thumbnailUrl: "como_foi_criado.png",
+    thumbnailUrl: "como_foi_criado.webp",
   },
   {
     id: "8aT9inpt5Uk",
     pergunta: "O Gyrotonic® é indicado para que tipos de reabilitação?",
     categoria: "Gyrotonic",
-    thumbnailUrl: "tipo_reabilitacao.png",
+    thumbnailUrl: "tipo_reabilitacao.webp",
   },
 ];
 

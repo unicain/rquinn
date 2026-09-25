@@ -5,13 +5,13 @@ import { useTexts } from "../context/TextContext";
 
 export default function SobreRoberta() {
   const [activeTab, setActiveTab] = useState<"historia" | "formacao">("historia");
-  const [imageSrc, setImageSrc] = useState("roberta_elite.png");
+  const [imageSrc, setImageSrc] = useState("roberta_elite.webp");
   const [isFallback, setIsFallback] = useState(false);
   const { t } = useTexts();
 
   const handleImageError = () => {
     if (!isFallback) {
-      setImageSrc("roberta.png");
+      setImageSrc("roberta_elite.png");
       setIsFallback(true);
     }
   };

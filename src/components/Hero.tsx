@@ -5,12 +5,12 @@ import { Sparkles, MessageSquare, MapPin } from "lucide-react";
 
 export default function Hero() {
   const { t } = useTexts();
-  const [heroImg, setHeroImg] = useState("roberta.png");
+  const [heroImg, setHeroImg] = useState("roberta.webp");
   const [hasError, setHasError] = useState(false);
 
   const handleImgError = () => {
     if (!hasError) {
-      setHeroImg("roberta_elite.png");
+      setHeroImg("roberta.png");
       setHasError(true);
     }
   };
