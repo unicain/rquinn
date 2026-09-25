@@ -55,7 +55,8 @@ export default function Equipe() {
         t("team_prof2_spec3", "Fisioterapia Respiratória & Terapia Intensiva"),
         t("team_prof2_spec4", "Método GYROTONIC®"),
         t("team_prof2_spec5", "Pilates Clínico"),
-        t("team_prof2_spec6", "Reeducação Postural Global (RPG)")
+        t("team_prof2_spec6", "Liberação Miofascial"),
+        t("team_prof2_spec7", "Reeducação Postural Global (RPG)")
       ]
     }
   ];
