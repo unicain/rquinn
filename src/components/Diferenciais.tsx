@@ -39,15 +39,6 @@ const CARACTERISTICAS_METODO = [
 
 export default function Diferenciais() {
   const { t } = useTexts();
-  const [imgSrc, setImgSrc] = useState("metodo_gyrotonic_destaque.webp");
-  const [hasError, setHasError] = useState(false);
-
-  const handleImgError = () => {
-    if (!hasError) {
-      setImgSrc("metodo_gyrotonic_destaque.jpg");
-      setHasError(true);
-    }
-  };
 
   return (
     <section id="diferenciais" className="relative overflow-hidden bg-roxo/[0.03] py-20 lg:py-28">
@@ -92,12 +83,11 @@ export default function Diferenciais() {
               <picture>
                 <source srcSet="metodo_gyrotonic_destaque.webp" type="image/webp" />
                 <img
-                  src={imgSrc}
+                  src="metodo_gyrotonic_destaque.webp"
                   alt={t(
                     "gyrotonic_img_alt",
                     "Dra. Roberta Quinn demonstrando exercício no aparelho GYROTONIC® Pulley Tower"
                   )}
-                  onError={handleImgError}
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02] min-h-[320px] sm:min-h-[420px] lg:min-h-[480px]"

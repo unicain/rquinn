@@ -5,16 +5,7 @@ import { useTexts } from "../context/TextContext";
 
 export default function SobreRoberta() {
   const [activeTab, setActiveTab] = useState<"historia" | "formacao">("historia");
-  const [imageSrc, setImageSrc] = useState("roberta_elite.webp");
-  const [isFallback, setIsFallback] = useState(false);
   const { t } = useTexts();
-
-  const handleImageError = () => {
-    if (!isFallback) {
-      setImageSrc("roberta_elite.png");
-      setIsFallback(true);
-    }
-  };
 
   return (
     <section id="sobre" className="w-full bg-[#FBF7F3] py-20 overflow-hidden relative border-t border-roxo/5">
@@ -41,24 +32,13 @@ export default function SobreRoberta() {
             
             <div className="relative w-full max-w-[380px] sm:max-w-[440px] md:max-w-full">
               <img
-                src={imageSrc}
+                src="roberta_elite.webp"
                 alt="Dra. Roberta Quinn"
-                onError={handleImageError}
                 referrerPolicy="no-referrer"
                 className="w-full h-auto object-contain z-10 select-none pointer-events-none transition-transform duration-700 hover:scale-[1.02]"
-                style={
-                  isFallback
-                    ? {
-                        objectPosition: "82% 20%",
-                        transform: "scale(1.4)",
-                        transformOrigin: "82% 20%",
-                        borderRadius: "24px",
-                        boxShadow: "0 10px 30px -10px rgba(74, 21, 75, 0.1)",
-                      }
-                    : {
-                        objectPosition: "bottom center",
-                      }
-                }
+                style={{
+                  objectPosition: "bottom center",
+                }}
               />
             </div>
           </div>
